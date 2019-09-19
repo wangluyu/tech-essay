@@ -1,2 +1,2 @@
-# Initial page
+# 技术随笔
 
