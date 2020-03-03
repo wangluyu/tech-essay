@@ -1,6 +1,6 @@
 # OpenRTB规范 V2.5
 
-> 本文参考[OpenRTB API Specification Version 2.5 FINAL](https://iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf)，面向google翻译整理而成，本人英语水平欠佳，故文中会存在语句不通、信息错误等情况，欢迎留言勘误。
+> 本文参考[OpenRTB API Specification Version 2.5 FINAL](https://iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf)，面向google翻译整理而成，本人英语水平欠佳(语文也不怎么样)，无法做到信雅达，故文中会存在语句不通、信息错误等情况，欢迎留言勘误。
 >
 > 转载请署名
 
@@ -72,7 +72,7 @@ HTTPS不是必须的，但使用HTTPS对于双方之间的交易更加安全。�
 
 ## Bid Request规范（Bid Request Specification）
 
-RTB交易发起于adx或者下游向广告主发送bid request时。bid request由顶级请求对象组成，包含至少一个impression对象以及其他可选的可能包含impression上下文的对象。
+RTB交易发起于adx或者publisher向广告主发送bid request时。bid request由顶级请求对象组成，包含至少一个impression对象以及其他可选的可能包含impression上下文的对象。
 
 ### 对象模型 （Object Model）
 
@@ -121,7 +121,34 @@ RTB交易发起于adx或者下游向广告主发送bid request时。bid request�
 
 - 一些可选的属性对于业务较为重要，因此会被标注为"recommended"
 
-- Unless a default value is explicitly specified, an omitted attribute is interpreted as “unknown”.
+- 没有标注"require"和"recommended"....略（Unless a default value is explicitly specified, an omitted attribute is interpreted as "unknown".）
 
 #### BidRequest对象
+
+request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是必须的，其中`imp`包含至少一个impression对象。其他所属于顶层对象下的对象是非必要的，其所建立规则和限制条件适用于该请求的所有impression。
+
+还有一些下级对象可以为潜在买家提供详细数据。例如 `site` 和 `app`对象，它们指明了广告会展示在APP还是网站上，虽然在技术上不是必要的，但强烈建议提供其中一个（site对象和app对象不能同时存在）。提供`site`对象表示广告将会在基于浏览器的网页上展示，提供`app`对象则表示广告将会在不依赖于浏览器的应用程式（俗称APP）上展现。
+
+| 属性    | 类型               | 描述                                                         |
+| ------- | ------------------ | ------------------------------------------------------------ |
+| id      | 字符串 `require`   | 出价请求的唯一id，由adx提供                                  |
+| imp     | 对象数组 `require` | imp对象列表，用于描述提供的impression，至少包含一个imp对象   |
+| site    | 对象 `recommended` | publisher的网站的详细信息，仅适用于网站且建议提供。          |
+| app     | 对象 `recommended` | publisher的app的详细信息，仅适用于APP且建议提供。            |
+| device  | 对象 `recommended` | 展示广告的设备的详细信息                                     |
+| user    | 对象 `recommended` | 设备使用者的详细信息；广告受众                               |
+| test    | 整数 默认是0       | 用于表示该请求是否计费；0表示计费；1表示测试模式，不计费     |
+| at      | 整数 默认是2       | 出价类型，1代表一价，2代表二价；自定义的出价类型可以使用大于500的数来表示。 |
+| tmax    | 整数               | 请求超时时间                                                 |
+| wseat   | 字符串数组         |                                                              |
+| bseat   | 字符串数组         |                                                              |
+| allimps | 整数 默认为0       |                                                              |
+| cur     | 字符串数组         |                                                              |
+| wlang   | 字符串数组         |                                                              |
+| bcat    | 字符串数组         |                                                              |
+| badv    | 字符串数组         |                                                              |
+| bapp    | 字符串数组         |                                                              |
+| source  | 对象               |                                                              |
+| regs    | 对象               |                                                              |
+| ext     | 对象               |                                                              |
 
