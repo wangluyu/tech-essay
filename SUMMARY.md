@@ -1,6 +1,6 @@
 # Table of contents
 
-* [技术随笔](README.md)
+* [随笔](README.md)
 
 ## RTB
 * [OpenRTB V2.5](RTB/OpenRTB2.5.md)
