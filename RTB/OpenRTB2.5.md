@@ -150,9 +150,9 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 | bcat    | 字符串数组         | 广告类型黑名单，IAB定义的广告类型列表详见5.1章节<br/>*Blocked advertiser categories using the IAB content categories. Refer to List 5.1.* |
 | badv    | 字符串数组         | 广告主域名黑名单(例：ford.com)<br/>*Block list of advertisers by their domains (e.g., “ford.com”).* |
 | bapp    | 字符串数组         | App包名黑名单，iOS的包名为一串数字。<br/>*Block list of applications by their platform-specific exchangeindependent application identifiers. On Android, these should be bundle or package names (e.g., com.foo.mygame). On iOS, these are numeric IDs.* |
-| source  | 对象               | source对象，提供</br>*A Sorce object ([Section 3.2.2](#3.2.2)) that provides data about the inventory source and which entity makes the final decision.* |
-| regs    | 对象               | regs对象，指定适用该请求的行业、法律或政府条例</br>*A Regs object (Section 3.2.3) that specifies any industry, legal, or governmental regulations in force for this request.* |
-| ext     | 对象               | 自定义携带信息</br>*Placeholder for exchange-specific extensions to OpenRTB.* |
+| source  | 对象               | source对象，提供 <br/> *A Sorce object ([Section 3.2.2](#3.2.2)) that provides data about the inventory source and which entity makes the final decision.* |
+| regs    | 对象               | regs对象，指定适用该请求的行业、法律或政府条例<br/>*A Regs object (Section 3.2.3) that specifies any industry, legal, or governmental regulations in force for this request.* |
+| ext     | 对象               | 自定义携带信息<br/>*Placeholder for exchange-specific extensions to OpenRTB.* |
 
 #### <span id="3.2.2">3.2.2 Source对象</span>
 
