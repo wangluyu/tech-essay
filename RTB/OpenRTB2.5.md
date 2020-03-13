@@ -2,7 +2,9 @@
 
 > 本文参考[OpenRTB API Specification Version 2.5 FINAL](https://iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf)，面向google翻译整理而成，本人英语水平欠佳(语文也不怎么样)，无法做到信雅达，故文中会存在语句不通、信息错误等情况，欢迎在github提issue。
 >
-> 转载请署名
+> 作者：wangluyu
+>
+> 商业转载请联系作者获得授权，非商业转载请注明出处
 
 ## 1 介绍 （Introduction）
 
@@ -125,7 +127,7 @@ RTB交易发起于adx或者publisher向广告主发送bid request时。bid reque
 
 - 没有标注"require"和"recommended"....略（Unless a default value is explicitly specified, an omitted attribute is interpreted as "unknown".）
 
-#### 3.2.1 BidRequest对象
+#### <span id="3.2.1">3.2.1 BidRequest对象</span> 
 
 request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是必须的，其中`imp`包含至少一个impression对象。其他所属于顶层对象下的对象是非必要的，其所建立规则和限制条件适用于该请求的所有impression。
 
