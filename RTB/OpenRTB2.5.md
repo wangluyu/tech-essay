@@ -131,28 +131,71 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 
 还有一些下级对象可以为潜在买家提供详细数据。例如 `site` 和 `app`对象，它们指明了广告会展示在APP还是网站上，虽然在技术上不是必要的，但强烈建议提供其中一个（site对象和app对象不能同时存在）。提供`site`对象表示广告将会在基于浏览器的网页上展示，提供`app`对象则表示广告将会在不依赖于浏览器的应用程式（俗称APP）上展现。
 
-| 属性    | 类型               | 描述                                                         |
-| ------- | ------------------ | ------------------------------------------------------------ |
-| id      | 字符串 `require`   | 出价请求的唯一id，由adx提供<br/>*Unique ID of the bid request, provided by the exchange.* |
-| imp     | 对象数组 `require` | imp对象列表，用于描述提供的impression，至少包含一个imp对象<br/>*Array of Imp objects (Section 3.2.4) representing the impressions offered. At least 1 Imp object is required.* |
-| site    | 对象 `recommended` | publisher的网站的详细信息，仅适用于网站且建议提供。<br/>*Details via a Site object (Section 3.2.13) about the publisher’s website. Only applicable and recommended for websites.* |
-| app     | 对象 `recommended` | publisher的app的详细信息，仅适用于APP且建议提供。<br/>*Details via an App object (Section 3.2.14) about the publisher’s app (i.e., non-browser applications). Only applicable and recommended for apps.* |
-| device  | 对象 `recommended` | 展示广告的设备的详细信息<br/>*Details via a Device object (Section 3.2.18) about the user’s device to which the impression will be delivered.* |
-| user    | 对象 `recommended` | 设备使用者的详细信息；广告受众<br/>*Details via a User object (Section 3.2.20) about the human user of the device; the advertising audience.* |
-| test    | 整数 默认是0       | 用于表示该请求是否计费；0表示计费；1表示测试模式，不计费<br/>*Indicator of test mode in which auctions are not billable, where 0 = live mode, 1 = test mode.* |
-| at      | 整数 默认是2       | 出价类型，1代表一价，2代表二价；自定义的出价类型可以使用大于500的数来表示。<br/>*Auction type, where 1 = First Price, 2 = Second Price Plus. Exchange-specific auction types can be defined using values greater than 500.* |
-| tmax    | 整数               | 请求超时时间<br/>*Maximum time in milliseconds the exchange allows for bids to be received including Internet latency to avoid timeout. This value supersedes any a priori guidance from the exchange.* |
-| wseat   | 字符串数组         | 买方(如广告主、代理商)白名单，adx和竞价者必须提前沟通好seat id对应的买方信息。wseat和bseat在同一个bidrequest中至多只能存在其中一个。如果都没有则代表对买方没有限制。<br/>*White list of buyer seats (e.g., advertisers, agencies) allowed to bid on this impression. IDs of seats and knowledge of the buyer’s customers to which they refer must be coordinated between bidders and the exchange a priori. At most, only one of wseat and bseat should be used in the same request. Omission of both implies no seat restrictions.* |
-| bseat   | 字符串数组         | 买方(如广告主、代理商)黑名单，adx和竞价者必须提前沟通好seat id对应的买方信息。wseat和bseat在同一个bidrequest中至多只能存在其中一个。如果都没有则代表对买方没有限制。<br/>*Block list of buyer seats (e.g., advertisers, agencies) restricted from bidding on this impression. IDs of seats and knowledge of the buyer’s customers to which they refer must be coordinated between bidders and the exchange a priori. At most, only one of wseat and bseat should be used in the same request. Omission of both implies no seat restrictions.* |
-| allimps | 整数 默认为0       | *Flag to indicate if Exchange can verify that the impressions offered represent all of the impressions available in context (e.g., all on the web page, all video spots such as pre/mid/post roll) to support road-blocking. 0 = no or unknown, 1 = yes, the impressions offered represent all that are available.* |
-| cur     | 字符串数组         | 支持的货币列表(遵循ISO 4217标准)，建议只在支持多种货币交易时使用。<br/>*Array of allowed currencies for bids on this bid request using ISO-4217 alpha codes. Recommended only if the exchange accepts multiple currencies.* |
-| wlang   | 字符串数组         | 素材支持的语言种类列表(遵循ISO-639-1-alpha-2标准)。缺失则表示对语言没有特别要求，但建议买方参考`Device`或`Content`中的`language`字段。<br/>*White list of languages for creatives using ISO-639-1-alpha-2. Omission implies no specific restrictions, but buyers would be advised to consider language attribute in the Device and/or Content objects if available.* |
-| bcat    | 字符串数组         | 广告类型黑名单，IAB定义的广告类型列表详见5.1章节<br/>*Blocked advertiser categories using the IAB content categories. Refer to List 5.1.* |
-| badv    | 字符串数组         | 广告主域名黑名单(例：ford.com)<br/>*Block list of advertisers by their domains (e.g., “ford.com”).* |
-| bapp    | 字符串数组         | App包名黑名单，iOS的包名为一串数字。<br/>*Block list of applications by their platform-specific exchangeindependent application identifiers. On Android, these should be bundle or package names (e.g., com.foo.mygame). On iOS, these are numeric IDs.* |
-| source  | 对象               | source对象，提供 <br/> *A Sorce object ([Section 3.2.2](#3.2.2)) that provides data about the inventory source and which entity makes the final decision.* |
-| regs    | 对象               | regs对象，指定适用该请求的行业、法律或政府条例<br/>*A Regs object (Section 3.2.3) that specifies any industry, legal, or governmental regulations in force for this request.* |
-| ext     | 对象               | 自定义携带信息<br/>*Placeholder for exchange-specific extensions to OpenRTB.* |
+| 属性              | 类型               | 描述                                                         |
+| ----------------- | ------------------ | ------------------------------------------------------------ |
+| id                | 字符串 `require`   | 出价请求的唯一id，由adx提供<br/>*Unique ID of the bid request, provided by the exchange.* |
+| [imp](#3.2.4)     | 对象数组 `require` | [imp对象列表](#3.2.4)，用于描述提供的impression，至少包含一个imp对象<br/>*Array of Imp objects ([Section 3.2.4](#3.2.4)) representing the impressions offered. At least 1 Imp object is required.* |
+| [site](#3.2.13)   | 对象 `recommended` | publisher的网站的详细信息，仅适用于网站且建议提供。<br/>*Details via a Site object ([Section 3.2.13](#3.2.13)) about the publisher’s website. Only applicable and recommended for websites.* |
+| [app](#3.2.14)    | 对象 `recommended` | publisher的app的详细信息，仅适用于APP且建议提供。<br/>*Details via an App object ([Section 3.2.14]()#3.2.14) about the publisher’s app (i.e., non-browser applications). Only applicable and recommended for apps.* |
+| [device](#3.2.18) | 对象 `recommended` | 展示广告的设备的详细信息<br/>*Details via a Device object ([Section 3.2.18](#3.2.18)) about the user’s device to which the impression will be delivered.* |
+| [user](#3.2.20)   | 对象 `recommended` | 设备使用者的详细信息；广告受众<br/>*Details via a User object ([Section 3.2.20](#3.2.20)) about the human user of the device; the advertising audience.* |
+| test              | 整数 默认是0       | 用于表示该请求是否计费；0表示计费；1表示测试模式，不计费<br/>*Indicator of test mode in which auctions are not billable, where 0 = live mode, 1 = test mode.* |
+| at                | 整数 默认是2       | 出价类型，1代表一价，2代表二价；自定义的出价类型可以使用大于500的数来表示。<br/>*Auction type, where 1 = First Price, 2 = Second Price Plus. Exchange-specific auction types can be defined using values greater than 500.* |
+| tmax              | 整数               | 请求超时时间<br/>*Maximum time in milliseconds the exchange allows for bids to be received including Internet latency to avoid timeout. This value supersedes any a priori guidance from the exchange.* |
+| wseat             | 字符串数组         | 买方(如广告主、代理商)白名单，adx和竞价者必须提前沟通好seat id对应的买方信息。wseat和bseat在同一个bidrequest中至多只能存在其中一个。如果都没有则代表对买方没有限制。<br/>*White list of buyer seats (e.g., advertisers, agencies) allowed to bid on this impression. IDs of seats and knowledge of the buyer’s customers to which they refer must be coordinated between bidders and the exchange a priori. At most, only one of wseat and bseat should be used in the same request. Omission of both implies no seat restrictions.* |
+| bseat             | 字符串数组         | 买方(如广告主、代理商)黑名单，adx和竞价者必须提前沟通好seat id对应的买方信息。wseat和bseat在同一个bidrequest中至多只能存在其中一个。如果都没有则代表对买方没有限制。<br/>*Block list of buyer seats (e.g., advertisers, agencies) restricted from bidding on this impression. IDs of seats and knowledge of the buyer’s customers to which they refer must be coordinated between bidders and the exchange a priori. At most, only one of wseat and bseat should be used in the same request. Omission of both implies no seat restrictions.* |
+| allimps           | 整数 默认为0       | *Flag to indicate if Exchange can verify that the impressions offered represent all of the impressions available in context (e.g., all on the web page, all video spots such as pre/mid/post roll) to support road-blocking. 0 = no or unknown, 1 = yes, the impressions offered represent all that are available.* |
+| cur               | 字符串数组         | 支持的货币列表(遵循ISO 4217标准)，建议只在支持多种货币交易时使用。<br/>*Array of allowed currencies for bids on this bid request using ISO-4217 alpha codes. Recommended only if the exchange accepts multiple currencies.* |
+| wlang             | 字符串数组         | 素材支持的语言种类列表(遵循ISO-639-1-alpha-2标准)。缺失则表示对语言没有特别要求，但建议买方参考`Device`或`Content`中的`language`字段。<br/>*White list of languages for creatives using ISO-639-1-alpha-2. Omission implies no specific restrictions, but buyers would be advised to consider language attribute in the Device and/or Content objects if available.* |
+| bcat              | 字符串数组         | 广告类型黑名单，描述当前竞价请求屏蔽的广告类型，IAB定义的广告类型列表详见5.1章节<br/>*Blocked advertiser categories using the IAB content categories. Refer to List 5.1.* |
+| badv              | 字符串数组         | 广告主黑名单，描述当前竞价请求屏蔽的广告主域名(例：ford.com)<br/>*Block list of advertisers by their domains (e.g., “ford.com”).* |
+| bapp              | 字符串数组         | App包名黑名单，描述当前竞价请求屏蔽的app，iOS的包名为一串数字。<br/>*Block list of applications by their platform-specific exchangeindependent application identifiers. On Android, these should be bundle or package names (e.g., com.foo.mygame). On iOS, these are numeric IDs.* |
+| source            | 对象               | [source对象](#3.2.2)，该数据段描述该广告曝光机会竞价决策的细节，是由adx发起还是媒体发起等等信息。 <br/> *A Sorce object ([Section 3.2.2](#3.2.2)) that provides data about the inventory source and which entity makes the final decision.* |
+| regs              | 对象               | [regs对象](#3.2.3)，指定适用该请求的行业、法律或政府条例<br/>*A Regs object ([Section 3.2.3](#3.2.3)) that specifies any industry, legal, or governmental regulations in force for this request.* |
+| ext               | 对象               | 自定义携带信息<br/>*Placeholder for exchange-specific extensions to OpenRTB.* |
 
 #### <span id="3.2.2">3.2.2 Source对象</span>
+
+该对象描述了此次广告请求实体的性质和行为。其主要作用就是标明请求是由adx发起还是媒体发起，并且记录了该请求的参与者（转了多少手，经过了哪些adx）。其中[header bidding](https://zhuanlan.zhihu.com/p/23675270)模式，就是由媒体来发起并作出最终决策的。
+
+| 属性   | 类型                 | 描述                                                         |
+| ------ | -------------------- | ------------------------------------------------------------ |
+| fd     | 整数 `recommended`   | 做出最终决策的实体(可以理解为是哪一方发起的bid request)，0代表adx，1代表媒体<br/>Entity responsible for the final impression sale decision, where 0 = exchange, 1 = upstream source. |
+| tid    | 字符串 `recommended` | 此次出价请求参与者之间共用的交易ID<br/>Transaction ID that must be common across all participants in this bid request (e.g., potentially multiple exchanges). |
+| pchain | 字符串 `recommended` | 以冒号分隔的payment id链条字符串，大概是这样子 96cabb5fbdde37a7:1017996<br/>Payment ID chain string containing embedded syntax described in the TAG Payment ID Protocol v1.0. |
+| ext    | 对象                 | 自定义携带信息，通常用于记录该请求的参与者<br/>Placeholder for exchange-specific extensions to OpenRTB. |
+
+#### <span id="3.2.3">3.2.3 Regs对象</span>
+
+该对象包含了任何适用该请求的行业、法律或政府条例。`coppa`字段用于表示该请求是否受美国联邦贸易委员会针对美国地区制定的`儿童在线隐私保护法`(COPPA)约束。
+
+| 属性  | 类型 | 描述                                                         |
+| ----- | ---- | ------------------------------------------------------------ |
+| coppa | 整数 | 是否受COPPA约束，0 = no， 1 = yes。更多细节参照[7.5章节](#7.5)<br/>Flag indicating if this request is subject to the COPPA regulations established by the USA FTC, where 0 = no, 1 = yes. Refer to Section 7.5 for more information. |
+| ext   | 对象 |                                                              |
+
+#### <span id="3.2.4"> 3.2.4 Imp对象</span>
+
+
+
+| 属性 | 类型             | 描述 |
+| ---- | ---------------- | ---- |
+| id   | 字符串 `require` |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
+|      |                  |      |
 
