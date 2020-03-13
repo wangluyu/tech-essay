@@ -32,14 +32,14 @@ OpenRTB是数字媒体自动化交易的一套开放标准，用于规范自动�
 | Site        | 网站或者app<br/>*Ad supported content including web and applications unless otherwise specified.* |
 | Deal        | Publisher和Site提前达成的协议，用于按特定条款购买展示<br/>*A pre-arranged agreement between a Publisher and a Seat to purchase impressions under certain terms.* |
 | *Adx        | Ad Exchange， 广告交易平台                                   |
-| *impression | 指一次展示，大概是指在某广告位展示广告的行为                 |
+| *impression | 广告曝光机会                                                 |
 
 ## 2 OpenRTB基础（OpenRTB Basics）
 
 下图描述了RTB的流程。
 
-- 首先publisher通过站点或app向adx发起一个bid request。
-- adx将请求转发给多个广告主，收到bid response后，adx根据计费方式（一价/二价等）选出竞价成功的广告主，并给竞价成功的广告主发送win notice，给没有竞价成功的广告主发送loss notice。
+- 首先publisher向adx发起一个ad request。
+- adx收到ad request后，将请求封装何曾bid request转发给多个广告主，收到bid response后，adx根据计费方式（一价/二价等）选出竞价成功的广告主，并给竞价成功的广告主发送win notice，给没有竞价成功的广告主发送loss notice。
 - 广告主收到win notice后，如果bid response没有包含物料，则需要在收到win notice时给adx返回物料。
 
 ![Reference Model - Request Sequence](https://pic1.zhimg.com/v2-26596b6429892a1439a08733b4a0b324_r.jpg)
@@ -90,30 +90,30 @@ RTB交易发起于adx或者publisher向广告主发送bid request时。bid reque
 
 下表列出了一些Bid Request模型中的对象和对应章节索引，可以在后续的章节里查看更加详细的解释。
 
-| 对象       | 章节   | 描述                                                         |
-| ---------- | ------ | ------------------------------------------------------------ |
-| BidRequest | 3.2.1  | 顶级对象<br/>*Top-level object*                              |
-| Source     | 3.2.2  | *Request source details on post-auction decisioning (e.g., header bidding).* |
-| Regs       | 3.2.3  | 监管限制 <br/>*Regulatory conditions in effect for all impressions in this bid request.* |
-| Imp        | 3.2.4  | 用于描述一个特定展示的详细信息，每个请求至少包含一个 <br/>*Container for the description of a specific impression; at least 1 per request.* |
-| Metric     | 3.2.5  | 关于该impression的历史指标 <br/>*A quantifiable often historical data point about an impression.* |
-| Banner     | 3.2.6  | banner展示(包含in-banner vedio)或video随播广告的详细信息 <br/>*Details for a banner impression (incl. in-banner video) or video companion ad.* |
-| Video      | 3.2.7  | 视频展示的详细信息<br/>*Details for a video impression.*     |
-| Audio      | 3.2.8  | 音频展示的详细信息 <br/>*Container for an audio impression.* |
-| Native     | 3.2.9  | 符合Dynamic Native Ads API的原生广告的详细信息<br/>*Container for a native impression conforming to the Dynamic Native Ads API.* |
-| Format     | 3.2.10 | 符合banner展示的尺寸<br/>*An allowed size of a banner*       |
-| Pmp        | 3.2.1  | 适用于该展示的PMP(private marketplace)交易 <br/>*Collection of private marketplace (PMP) deals applicable to this impression.* |
-| Deal       | 3.2.12 | 买卖双方对于该展示制定的交易条款<br/>*Deal terms pertaining to this impression between a seller and buyer.* |
-| Site       | 3.2.13 | 展示广告的网站信息<br/>*Details of the website calling for the impression.* |
-| App        | 3.2.14 | 展示广告的APP信息<br/>*Details of the application calling for the impression* |
-| Publisher  | 3.2.15 | 用于展示广告的网站orAPP的发布者，rtb中的卖方<br/>*Entity that controls the content of and distributes the site or app.* |
-| Content    | 3.2.1  | *Details about the published content itself, within which the ad will be shown.* |
-| Producer   | 3.2.1  | content的生产者，不一定是发布者(例如 联合发布) <br/>*Producer of the content; not necessarily the publisher (e.g., syndication).* |
-| Device     | 3.2.18 | 显示广告或content的设备的详细信息<br/>*Details of the device on which the content and impressions are displayed.* |
-| Geo        | 3.2.19 | 设备的位置或者用户住址的位置，取决于父对象<br/>*Location of the device or user’s home base depending on the parent object.* |
-| User       | 3.2.20 | 设备的使用者，广告受众<br/>*Human user of the device; audience for advertising.* |
-| Data       | 3.2.21 | 来自特定数据源的其他用户定位数据集合 <br/>*Collection of additional user targeting data from a specific data source.* |
-| Segment    | 3.2.22 | 用户定位数据（例如兴趣爱好等）<br/>*Specific data point about a user from a specific data source.* |
+| 对象       | 章节              | 描述                                                         |
+| ---------- | ----------------- | ------------------------------------------------------------ |
+| BidRequest | [3.2.1](#3.2.1)   | 顶级对象<br/>*Top-level object*                              |
+| Source     | [3.2.2](#3.2.2)   | *Request source details on post-auction decisioning (e.g., header bidding).* |
+| Regs       | [3.2.3](#3.2.3)   | 监管限制 <br/>*Regulatory conditions in effect for all impressions in this bid request.* |
+| Imp        | [3.2.4](#3.2.4)   | 用于描述一个特定展示的详细信息，每个请求至少包含一个 <br/>*Container for the description of a specific impression; at least 1 per request.* |
+| Metric     | [3.2.5](#3.2.5)   | 关于该impression的历史指标 <br/>*A quantifiable often historical data point about an impression.* |
+| Banner     | [3.2.6](#3.2.6)   | banner展示(包含in-banner vedio)或video随播广告的详细信息 <br/>*Details for a banner impression (incl. in-banner video) or video companion ad.* |
+| Video      | [3.2.7](#3.2.7)   | 视频展示的详细信息<br/>*Details for a video impression.*     |
+| Audio      | [3.2.8](#3.2.8)   | 音频展示的详细信息 <br/>*Container for an audio impression.* |
+| Native     | [3.2.9](#3.2.9)   | 符合Dynamic Native Ads API的原生广告的详细信息<br/>*Container for a native impression conforming to the Dynamic Native Ads API.* |
+| Format     | [3.2.10](#3.2.10) | 符合banner展示的尺寸<br/>*An allowed size of a banner*       |
+| Pmp        | [3.2.11](#3.2.11) | 适用于该展示的PMP(private marketplace)交易 <br/>*Collection of private marketplace (PMP) deals applicable to this impression.* |
+| Deal       | [3.2.12](#3.2.12) | 买卖双方对于该展示制定的交易条款<br/>*Deal terms pertaining to this impression between a seller and buyer.* |
+| Site       | [3.2.13](#3.2.13) | 展示广告的网站信息<br/>*Details of the website calling for the impression.* |
+| App        | [3.2.14](#3.2.14) | 展示广告的APP信息<br/>*Details of the application calling for the impression* |
+| Publisher  | [3.2.15](#3.2.15) | 用于展示广告的网站orAPP的发布者，rtb中的卖方<br/>*Entity that controls the content of and distributes the site or app.* |
+| Content    | [3.2.16](#3.2.16) | *Details about the published content itself, within which the ad will be shown.* |
+| Producer   | [3.2.17](#3.2.17) | content的生产者，不一定是发布者(例如 联合发布) <br/>*Producer of the content; not necessarily the publisher (e.g., syndication).* |
+| Device     | [3.2.18](#3.2.18) | 显示广告或content的设备的详细信息<br/>*Details of the device on which the content and impressions are displayed.* |
+| Geo        | [3.2.19](#3.2.19) | 设备的位置或者用户住址的位置，取决于父对象<br/>*Location of the device or user’s home base depending on the parent object.* |
+| User       | [3.2.20](#3.2.20) | 设备的使用者，广告受众<br/>*Human user of the device; audience for advertising.* |
+| Data       | [3.2.21](#3.2.21) | 来自特定数据源的其他用户定位数据集合 <br/>*Collection of additional user targeting data from a specific data source.* |
+| Segment    | [3.2.22](#3.2.22) | 用户定位数据（例如兴趣爱好等）<br/>*Specific data point about a user from a specific data source.* |
 
 ### 3.2 对象规范 （Object Specifications）
 
