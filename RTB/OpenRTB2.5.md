@@ -1,4 +1,4 @@
-# OpenRTB规范 V2.5 FINAL
+# OpenRTB规范 V2.5 FINAL（中文）
 
 > 本文参考[OpenRTB API Specification Version 2.5 FINAL](https://iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf)，面向google翻译整理而成，本人英语水平欠佳(语文也不怎么样)，无法做到信雅达，故文中会存在语句不通、信息错误等情况，欢迎在github提issue。
 >
@@ -176,28 +176,30 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 | coppa | 整数 | 是否受COPPA约束，0 = no， 1 = yes。更多细节参照[7.5章节](#7.5)<br/>Flag indicating if this request is subject to the COPPA regulations established by the USA FTC, where 0 = no, 1 = yes. Refer to Section 7.5 for more information. |
 | ext   | 对象 |                                                              |
 
-#### <span id="3.2.4"> 3.2.4 Imp对象</span>
+#### <span id="3.2.4"> 3.2.4 Imp对象 </span>
 
+此对象描述了一个被拍卖的广告位或者曝光机会。单个出价请求可以包含多个`imp`对象，这意味着支持对指定页面的所有广告位进行交易。每一个`imp`对象都包含一个id，因此可以对每个出价单独考虑。
 
+`Banner`对象、`Video`对象、`Native`对象是`imp`的子对象，它们表明了该曝光机会的类型。publiser可以选择其中一种类型或者根据需要将几种类型进行混合，但对该曝光机会的出价必须符合其中一种类型。
 
-| 属性 | 类型             | 描述 |
-| ---- | ---------------- | ---- |
-| id   | 字符串 `require` |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
-|      |                  |      |
+| 属性              | 类型                | 描述                                                         |
+| ----------------- | ------------------- | ------------------------------------------------------------ |
+| id                | 字符串 `require`    | 在该出价请求中，每个imp对象的唯一标识符（通常从1开始递增）<br/>A unique identifier for this impression within the context of the bid request (typically, starts with 1 and increments. |
+| metric            | 对象数组            |                                                              |
+| banner            | 对象                |                                                              |
+| video             | 对象                |                                                              |
+| audio             | 对象                |                                                              |
+| native            | 对象                |                                                              |
+| pmp               | 对象                |                                                              |
+| displaymanager    | 字符串              |                                                              |
+| displaymanagerver | 字符串              |                                                              |
+| instl             | 整数；默认为0       |                                                              |
+| tagid             | 字符串              |                                                              |
+| bidfloor          | 浮点数；默认为0     |                                                              |
+| bidfloorcur       | 字符串；默认为"USD" |                                                              |
+| clickbrowser      | 整数                |                                                              |
+| secure            | 整数                |                                                              |
+| iframebuster      | 字符串数组          |                                                              |
+| exp               | 整数                |                                                              |
+| ext               | 对象                |                                                              |
 
