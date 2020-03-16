@@ -34,7 +34,7 @@ OpenRTB是数字媒体自动化交易的一套开放标准，用于规范自动�
 | Site        | 网站或者app<br/>*Ad supported content including web and applications unless otherwise specified.* |
 | Deal        | Publisher和Site提前达成的协议，用于按特定条款购买展示<br/>*A pre-arranged agreement between a Publisher and a Seat to purchase impressions under certain terms.* |
 | *Adx        | Ad Exchange， 广告交易平台                                   |
-| *impression | 广告曝光机会                                                 |
+| *impression | 广告展示机会                                                 |
 
 ## 2 OpenRTB基础（OpenRTB Basics）
 
@@ -152,7 +152,7 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 | bcat              | 字符串数组         | 广告类型黑名单，描述当前竞价请求屏蔽的广告类型，IAB定义的广告类型列表详见5.1章节<br/>*Blocked advertiser categories using the IAB content categories. Refer to List 5.1.* |
 | badv              | 字符串数组         | 广告主黑名单，描述当前竞价请求屏蔽的广告主域名(例：ford.com)<br/>*Block list of advertisers by their domains (e.g., “ford.com”).* |
 | bapp              | 字符串数组         | App包名黑名单，描述当前竞价请求屏蔽的app，iOS的包名为一串数字。<br/>*Block list of applications by their platform-specific exchangeindependent application identifiers. On Android, these should be bundle or package names (e.g., com.foo.mygame). On iOS, these are numeric IDs.* |
-| source            | 对象               | [source对象](#3.2.2)，该数据段描述该广告曝光机会竞价决策的细节，是由adx发起还是媒体发起等等信息。 <br/> *A Sorce object ([Section 3.2.2](#3.2.2)) that provides data about the inventory source and which entity makes the final decision.* |
+| source            | 对象               | [source对象](#3.2.2)，该数据段描述该广告展示机会竞价决策的细节，是由adx发起还是媒体发起等等信息。 <br/> *A Sorce object ([Section 3.2.2](#3.2.2)) that provides data about the inventory source and which entity makes the final decision.* |
 | regs              | 对象               | [regs对象](#3.2.3)，指定适用该请求的行业、法律或政府条例<br/>*A Regs object ([Section 3.2.3](#3.2.3)) that specifies any industry, legal, or governmental regulations in force for this request.* |
 | ext               | 对象               | 自定义携带信息<br/>*Placeholder for exchange-specific extensions to OpenRTB.* |
 
@@ -178,28 +178,28 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 
 #### <span id="3.2.4"> 3.2.4 Imp对象 </span>
 
-此对象描述了一个被拍卖的广告位或者曝光机会。单个出价请求可以包含多个`imp`对象，这意味着支持对指定页面的所有广告位进行交易。每一个`imp`对象都包含一个id，因此可以对每个出价单独考虑。
+此对象描述了一个被拍卖的广告位或者impression。单个出价请求可以包含多个`imp`对象，这意味着支持对指定页面的所有广告位进行交易。每一个`imp`对象都包含一个id，因此可以对每个出价单独考虑。
 
-`Banner`对象、`Video`对象、`Native`对象是`imp`的子对象，它们表明了该曝光机会的类型。publiser可以选择其中一种类型或者根据需要将几种类型进行混合，但对该曝光机会的出价必须符合其中一种类型。
+`Banner`对象、`Video`对象、`Native`对象是`imp`的子对象，它们表明了该impression的类型。publiser可以选择其中一种类型或者根据需要将几种类型进行组合，但对该impression的出价必须符合其中一种类型。
 
 | 属性              | 类型                | 描述                                                         |
 | ----------------- | ------------------- | ------------------------------------------------------------ |
 | id                | 字符串 `require`    | 在该出价请求中，每个imp对象的唯一标识符（通常从1开始递增）<br/>A unique identifier for this impression within the context of the bid request (typically, starts with 1 and increments. |
-| metric            | 对象数组            |                                                              |
-| banner            | 对象                |                                                              |
-| video             | 对象                |                                                              |
-| audio             | 对象                |                                                              |
-| native            | 对象                |                                                              |
-| pmp               | 对象                |                                                              |
-| displaymanager    | 字符串              |                                                              |
-| displaymanagerver | 字符串              |                                                              |
-| instl             | 整数；默认为0       |                                                              |
-| tagid             | 字符串              |                                                              |
-| bidfloor          | 浮点数；默认为0     |                                                              |
-| bidfloorcur       | 字符串；默认为"USD" |                                                              |
-| clickbrowser      | 整数                |                                                              |
-| secure            | 整数                |                                                              |
-| iframebuster      | 字符串数组          |                                                              |
-| exp               | 整数                |                                                              |
-| ext               | 对象                |                                                              |
+| metric            | 对象数组            | metric对象(3.2.5小节)数组                                    |
+| banner            | 对象                | 一个banner对象(3.2.6小节)；如果该impression是banner类型，则必须提供该对象<br/>A Banner object (Section 3.2.6); required if this impression is offered as a banner ad opportunity. |
+| video             | 对象                | 一个video对象(3.2.7小节)；如果该impression是video类型，则必须提供该对象<br/>A Video object (Section 3.2.7); required if this impression is offered as a video ad opportunity. |
+| audio             | 对象                | 一个audio对象(3.2.8小节)；如果该impression是audio类型，则必须提供该对象<br/>An Audio object (Section 3.2.8); required if this impression is offered as an audio ad opportunity. |
+| native            | 对象                | 一个native对象(3.2.9小节)；如果该impression是native类型，则必须提供该对象<br/>A Native object (Section 3.2.9); required if this impression is offered as a native ad opportunity. |
+| pmp               | 对象                | 一个PMP对象（3.2.11小节）；适用于该impression的私有广告交易。这里放几篇文章，帮助大家更好地理解什么是PMP。 [《PMP私有交易市场——程序化广告的新高度》](http://www.chinawebanalytics.cn/pmp-new-level-of-programmatic/) 、[《半小时读懂PMP私有广告交易市场》](http://www.chinawebanalytics.cn/what-is-pmp-in-half-an-hour/)，作者是宋星。<br/>A Pmp object (Section 3.2.11) containing any private marketplace deals in effect for this impression. |
+| displaymanager    | 字符串              | 广告聚合的名称，负责渲染播放广告的SDK（通常用于视频或者移动设备）。推荐app或视频的广告请求提供此字段。<br/>Name of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile). Used by some ad servers to customize ad code by partner. Recommended for video and/or apps. |
+| displaymanagerver | 字符串              | displaymanager的版本号。<br/>Version of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile). Used by some ad servers to customize ad code by partner. Recommended for video and/or apps. |
+| instl             | 整数；默认为0       | 1代表该广告是插屏广告或全屏广告，0代表不是插屏广告<br/>1 = the ad is interstitial or full screen, 0 = not interstitial. |
+| tagid             | 字符串              | 广告位的标识符或用于发起出价请求的广告代码。提供此字段可以帮助定位解决问题，或帮助广告主进行优化。<br/>Identifier for specific ad placement or ad tag that was used to initiate the auction. This can be useful for debugging of any issues, or for optimization by the buyer. |
+| bidfloor          | 浮点数；默认为0     | 该impression的最低出价，也可称其为CPM<br/>Minimum bid for this impression expressed in CPM |
+| bidfloorcur       | 字符串；默认为"USD" | 遵循ISO 4217标准的货币类型。如果adx允许，出价的货币类型可以与该字段不同。<br/>Currency specified using ISO-4217 alpha codes. This may be different from bid currency returned by bidder if this is allowed by the exchange. |
+| clickbrowser      | 整数                | 表明在app中点击广告后打开的浏览器类型，其中0代表嵌入式（在app中打开），1代表原生（跳转到app外，用手机中的默认浏览器打开）。 请注意，就该字段而言，iOS 9.x设备中的Safari View Controller被视为原生浏览器。<br/>Indicates the type of browser opened upon clicking the creative in an app, where 0 = embedded, 1 = native. Note that the Safari View Controller in iOS 9.x devices is considered a native browser for purposes of this attribute. |
+| secure            | 整数                | 标记广告素材的url是否需要使用https协议，1是0否。如果省略，则默认使用http协议。<br/>Flag to indicate if the impression requires secure HTTPS URL creative assets and markup, where 0 = non-secure, 1 = secure. If omitted, the secure state is unknown, but non-secure HTTP support can be assumed. |
+| iframebuster      | 字符串数组          | 支持的iframe-busters的名称<br/>Array of exchange-specific names of supported iframe busters. |
+| exp               | 整数                | 该交易有效的时长（秒数）。<br/>Advisory as to the number of seconds that may elapse between the auction and the actual impression. |
+| ext               | 对象                | 占位符<br/>Placeholder for exchange-specific extensions to OpenRTB. |
 
