@@ -92,30 +92,30 @@ RTB交易发起于adx或者publisher向广告主发送bid request时。bid reque
 
 下表列出了一些Bid Request模型中的对象和对应章节索引，可以在后续的章节里查看更加详细的解释。
 
-| 对象       | 章节              | 描述                                                         |
-| ---------- | ----------------- | ------------------------------------------------------------ |
-| BidRequest | [3.2.1](#3.2.1)   | 顶级对象<br/>*Top-level object*                              |
-| Source     | [3.2.2](#3.2.2)   | *Request source details on post-auction decisioning (e.g., header bidding).* |
-| Regs       | [3.2.3](#3.2.3)   | 监管限制 <br/>*Regulatory conditions in effect for all impressions in this bid request.* |
-| Imp        | [3.2.4](#3.2.4)   | 用于描述一个特定展示的详细信息，每个请求至少包含一个 <br/>*Container for the description of a specific impression; at least 1 per request.* |
-| Metric     | [3.2.5](#3.2.5)   | 关于该impression的历史指标 <br/>*A quantifiable often historical data point about an impression.* |
-| Banner     | [3.2.6](#3.2.6)   | banner展示(包含in-banner vedio)或video随播广告的详细信息 <br/>*Details for a banner impression (incl. in-banner video) or video companion ad.* |
-| Video      | [3.2.7](#3.2.7)   | 视频展示的详细信息<br/>*Details for a video impression.*     |
-| Audio      | [3.2.8](#3.2.8)   | 音频展示的详细信息 <br/>*Container for an audio impression.* |
-| Native     | [3.2.9](#3.2.9)   | 符合Dynamic Native Ads API的原生广告的详细信息<br/>*Container for a native impression conforming to the Dynamic Native Ads API.* |
-| Format     | [3.2.10](#3.2.10) | 符合banner展示的尺寸<br/>*An allowed size of a banner*       |
-| Pmp        | [3.2.11](#3.2.11) | 适用于该展示的PMP(private marketplace)交易 <br/>*Collection of private marketplace (PMP) deals applicable to this impression.* |
-| Deal       | [3.2.12](#3.2.12) | 买卖双方对于该展示制定的交易条款<br/>*Deal terms pertaining to this impression between a seller and buyer.* |
-| Site       | [3.2.13](#3.2.13) | 展示广告的网站信息<br/>*Details of the website calling for the impression.* |
-| App        | [3.2.14](#3.2.14) | 展示广告的APP信息<br/>*Details of the application calling for the impression* |
-| Publisher  | [3.2.15](#3.2.15) | 用于展示广告的网站orAPP的发布者，rtb中的卖方<br/>*Entity that controls the content of and distributes the site or app.* |
-| Content    | [3.2.16](#3.2.16) | *Details about the published content itself, within which the ad will be shown.* |
-| Producer   | [3.2.17](#3.2.17) | content的生产者，不一定是发布者(例如 联合发布) <br/>*Producer of the content; not necessarily the publisher (e.g., syndication).* |
-| Device     | [3.2.18](#3.2.18) | 显示广告或content的设备的详细信息<br/>*Details of the device on which the content and impressions are displayed.* |
-| Geo        | [3.2.19](#3.2.19) | 设备的位置或者用户住址的位置，取决于父对象<br/>*Location of the device or user’s home base depending on the parent object.* |
-| User       | [3.2.20](#3.2.20) | 设备的使用者，广告受众<br/>*Human user of the device; audience for advertising.* |
-| Data       | [3.2.21](#3.2.21) | 来自特定数据源的其他用户定位数据集合 <br/>*Collection of additional user targeting data from a specific data source.* |
-| Segment    | [3.2.22](#3.2.22) | 用户定位数据（例如兴趣爱好等）<br/>*Specific data point about a user from a specific data source.* |
+| 对象       | 章节                           | 描述                                                         |
+| ---------- | ------------------------------ | ------------------------------------------------------------ |
+| BidRequest | [3.2.1](#3.2.1)                | 顶级对象<br/>*Top-level object*                              |
+| Source     | [3.2.2](#3.2.2)                | *Request source details on post-auction decisioning (e.g., header bidding).* |
+| Regs       | [3.2.3](#3.2.3)                | 监管限制 <br/>*Regulatory conditions in effect for all impressions in this bid request.* |
+| Imp        | [3.2.4](#3.2.4)                | 用于描述一个特定展示的详细信息，每个请求至少包含一个 <br/>*Container for the description of a specific impression; at least 1 per request.* |
+| Metric     | [3.2.5](#3.2.5)                | 关于该impression的历史指标 <br/>*A quantifiable often historical data point about an impression.* |
+| Banner     | [3.2.6](#326-banner-dui-xiang) | banner展示(包含in-banner vedio)或video随播广告的详细信息 <br/>*Details for a banner impression (incl. in-banner video) or video companion ad.* |
+| Video      | [3.2.7](#3.2.7)                | 视频展示的详细信息<br/>*Details for a video impression.*     |
+| Audio      | [3.2.8](#3.2.8)                | 音频展示的详细信息 <br/>*Container for an audio impression.* |
+| Native     | [3.2.9](#3.2.9)                | 符合Dynamic Native Ads API的原生广告的详细信息<br/>*Container for a native impression conforming to the Dynamic Native Ads API.* |
+| Format     | [3.2.10](#3.2.10)              | 符合banner展示的尺寸<br/>*An allowed size of a banner*       |
+| Pmp        | [3.2.11](#3.2.11)              | 适用于该展示的PMP(private marketplace)交易 <br/>*Collection of private marketplace (PMP) deals applicable to this impression.* |
+| Deal       | [3.2.12](#3.2.12)              | 买卖双方对于该展示制定的交易条款<br/>*Deal terms pertaining to this impression between a seller and buyer.* |
+| Site       | [3.2.13](#3.2.13)              | 展示广告的网站信息<br/>*Details of the website calling for the impression.* |
+| App        | [3.2.14](#3.2.14)              | 展示广告的APP信息<br/>*Details of the application calling for the impression* |
+| Publisher  | [3.2.15](#3.2.15)              | 用于展示广告的网站orAPP的发布者，rtb中的卖方<br/>*Entity that controls the content of and distributes the site or app.* |
+| Content    | [3.2.16](#3.2.16)              | *Details about the published content itself, within which the ad will be shown.* |
+| Producer   | [3.2.17](#3.2.17)              | content的生产者，不一定是发布者(例如 联合发布) <br/>*Producer of the content; not necessarily the publisher (e.g., syndication).* |
+| Device     | [3.2.18](#3.2.18)              | 显示广告或content的设备的详细信息<br/>*Details of the device on which the content and impressions are displayed.* |
+| Geo        | [3.2.19](#3.2.19)              | 设备的位置或者用户住址的位置，取决于父对象<br/>*Location of the device or user’s home base depending on the parent object.* |
+| User       | [3.2.20](#3.2.20)              | 设备的使用者，广告受众<br/>*Human user of the device; audience for advertising.* |
+| Data       | [3.2.21](#3.2.21)              | 来自特定数据源的其他用户定位数据集合 <br/>*Collection of additional user targeting data from a specific data source.* |
+| Segment    | [3.2.22](#3.2.22)              | 用户定位数据（例如兴趣爱好等）<br/>*Specific data point about a user from a specific data source.* |
 
 ### 3.2 对象规范 （Object Specifications）
 
@@ -162,10 +162,10 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 
 | 属性   | 类型                 | 描述                                                         |
 | ------ | -------------------- | ------------------------------------------------------------ |
-| fd     | 整数 `recommended`   | 做出最终决策的实体(可以理解为是哪一方发起的bid request)，0代表adx，1代表媒体<br/>Entity responsible for the final impression sale decision, where 0 = exchange, 1 = upstream source. |
-| tid    | 字符串 `recommended` | 此次出价请求参与者之间共用的交易ID<br/>Transaction ID that must be common across all participants in this bid request (e.g., potentially multiple exchanges). |
-| pchain | 字符串 `recommended` | 以冒号分隔的payment id链条字符串，大概是这样子 96cabb5fbdde37a7:1017996<br/>Payment ID chain string containing embedded syntax described in the TAG Payment ID Protocol v1.0. |
-| ext    | 对象                 | 自定义携带信息，通常用于记录该请求的参与者<br/>Placeholder for exchange-specific extensions to OpenRTB. |
+| fd     | 整数 `recommended`   | 做出最终决策的实体(可以理解为是哪一方发起的bid request)，0代表adx，1代表媒体<br/>*Entity responsible for the final impression sale decision, where 0 = exchange, 1 = upstream source.* |
+| tid    | 字符串 `recommended` | 此次出价请求参与者之间共用的交易ID<br/>*Transaction ID that must be common across all participants in this bid request (e.g., potentially multiple exchanges).* |
+| pchain | 字符串 `recommended` | 以冒号分隔的payment id链条字符串，大概是这样子 96cabb5fbdde37a7:1017996<br/>*Payment ID chain string containing embedded syntax described in the TAG Payment ID Protocol v1.0.* |
+| ext    | 对象                 | 自定义携带信息，通常用于记录该请求的参与者<br/>*Placeholder for exchange-specific extensions to OpenRTB.* |
 
 #### <span id="3.2.3">3.2.3 Regs对象</span>
 
@@ -173,7 +173,7 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 
 | 属性  | 类型 | 描述                                                         |
 | ----- | ---- | ------------------------------------------------------------ |
-| coppa | 整数 | 是否受COPPA约束，0 = no， 1 = yes。更多细节参照[7.5章节](#7.5)<br/>Flag indicating if this request is subject to the COPPA regulations established by the USA FTC, where 0 = no, 1 = yes. Refer to Section 7.5 for more information. |
+| coppa | 整数 | 是否受COPPA约束，0 = no， 1 = yes。更多细节参照[7.5章节](#7.5)<br/>*Flag indicating if this request is subject to the COPPA regulations established by the USA FTC, where 0 = no, 1 = yes. Refer to Section 7.5 for more information.* |
 | ext   | 对象 |                                                              |
 
 #### <span id="3.2.4"> 3.2.4 Imp对象 </span>
@@ -184,24 +184,37 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 
 | 属性                            | 类型                | 描述                                                         |
 | ------------------------------- | ------------------- | ------------------------------------------------------------ |
-| id                              | 字符串 `require`    | 在该出价请求中，每个imp对象的唯一标识符（通常从1开始递增）<br/>A unique identifier for this impression within the context of the bid request (typically, starts with 1 and increments. |
+| id                              | 字符串 `require`    | 在该出价请求中，每个imp对象的唯一标识符（通常从1开始递增）<br/>*A unique identifier for this impression within the context of the bid request (typically, starts with 1 and increments.* |
 | [metric](#325-metric-dui-xiang) | 对象数组            | metric对象([3.2.5小节](#325-metric-dui-xiang))数组           |
-| banner                          | 对象                | 一个banner对象(3.2.6小节)；如果该impression是banner类型，则必须提供该对象<br/>A Banner object (Section 3.2.6); required if this impression is offered as a banner ad opportunity. |
-| video                           | 对象                | 一个video对象(3.2.7小节)；如果该impression是video类型，则必须提供该对象<br/>A Video object (Section 3.2.7); required if this impression is offered as a video ad opportunity. |
-| audio                           | 对象                | 一个audio对象(3.2.8小节)；如果该impression是audio类型，则必须提供该对象<br/>An Audio object (Section 3.2.8); required if this impression is offered as an audio ad opportunity. |
-| native                          | 对象                | 一个native对象(3.2.9小节)；如果该impression是native类型，则必须提供该对象<br/>A Native object (Section 3.2.9); required if this impression is offered as a native ad opportunity. |
-| pmp                             | 对象                | 一个PMP对象（3.2.11小节）；适用于该impression的私有广告交易。这里放几篇文章，帮助大家更好地理解什么是PMP。 [《PMP私有交易市场——程序化广告的新高度》](http://www.chinawebanalytics.cn/pmp-new-level-of-programmatic/) 、[《半小时读懂PMP私有广告交易市场》](http://www.chinawebanalytics.cn/what-is-pmp-in-half-an-hour/)，作者是宋星。<br/>A Pmp object (Section 3.2.11) containing any private marketplace deals in effect for this impression. |
-| displaymanager                  | 字符串              | 广告聚合的名称，负责渲染播放广告的SDK（通常用于视频或者移动设备）。推荐app或视频的广告请求提供此字段。<br/>Name of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile). Used by some ad servers to customize ad code by partner. Recommended for video and/or apps. |
-| displaymanagerver               | 字符串              | displaymanager的版本号。<br/>Version of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile). Used by some ad servers to customize ad code by partner. Recommended for video and/or apps. |
-| instl                           | 整数；默认为0       | 1代表该广告是插屏广告或全屏广告，0代表不是插屏广告<br/>1 = the ad is interstitial or full screen, 0 = not interstitial. |
-| tagid                           | 字符串              | 广告位的标识符或用于发起出价请求的广告代码。提供此字段可以帮助定位解决问题，或帮助广告主进行优化。<br/>Identifier for specific ad placement or ad tag that was used to initiate the auction. This can be useful for debugging of any issues, or for optimization by the buyer. |
-| bidfloor                        | 浮点数；默认为0     | 该impression的最低出价，也可称其为CPM<br/>Minimum bid for this impression expressed in CPM |
-| bidfloorcur                     | 字符串；默认为"USD" | 遵循ISO 4217标准的货币类型。如果adx允许，出价的货币类型可以与该字段不同。<br/>Currency specified using ISO-4217 alpha codes. This may be different from bid currency returned by bidder if this is allowed by the exchange. |
-| clickbrowser                    | 整数                | 表明在app中点击广告后打开的浏览器类型，其中0代表嵌入式（在app中打开），1代表原生（跳转到app外，用手机中的默认浏览器打开）。 请注意，就该字段而言，iOS 9.x设备中的Safari View Controller被视为原生浏览器。<br/>Indicates the type of browser opened upon clicking the creative in an app, where 0 = embedded, 1 = native. Note that the Safari View Controller in iOS 9.x devices is considered a native browser for purposes of this attribute. |
-| secure                          | 整数                | 标记广告素材的url是否需要使用https协议，1是0否。如果省略，则默认使用http协议。<br/>Flag to indicate if the impression requires secure HTTPS URL creative assets and markup, where 0 = non-secure, 1 = secure. If omitted, the secure state is unknown, but non-secure HTTP support can be assumed. |
-| iframebuster                    | 字符串数组          | 支持的iframe-busters的名称<br/>Array of exchange-specific names of supported iframe busters. |
-| exp                             | 整数                | 该交易有效的时长（秒数）。<br/>Advisory as to the number of seconds that may elapse between the auction and the actual impression. |
-| ext                             | 对象                | 占位符<br/>Placeholder for exchange-specific extensions to OpenRTB. |
+| [banner](#326-banner-dui-xiang) | 对象                | 一个banner对象([3.2.6小节](#326-banner-dui-xiang))；如果该impression是banner类型，则必须提供该对象<br/>*A Banner object ([Section 3.2.6](#326-banner-dui-xiang)); required if this impression is offered as a banner ad opportunity.* |
+| video                           | 对象                | 一个video对象(3.2.7小节)；如果该impression是video类型，则必须提供该对象<br/>*A Video object (Section 3.2.7); required if this impression is offered as a video ad opportunity.* |
+| audio                           | 对象                | 一个audio对象(3.2.8小节)；如果该impression是audio类型，则必须提供该对象<br/>*An Audio object (Section 3.2.8); required if this impression is offered as an audio ad opportunity.* |
+| native                          | 对象                | 一个native对象(3.2.9小节)；如果该impression是native类型，则必须提供该对象<br/>*A Native object (Section 3.2.9); required if this impression is offered as a native ad opportunity.* |
+| pmp                             | 对象                | 一个PMP对象（3.2.11小节）；适用于该impression的私有广告交易。这里放几篇文章，帮助大家更好地理解什么是PMP。 [《PMP私有交易市场——程序化广告的新高度》](http://www.chinawebanalytics.cn/pmp-new-level-of-programmatic/) 、[《半小时读懂PMP私有广告交易市场》](http://www.chinawebanalytics.cn/what-is-pmp-in-half-an-hour/)，作者是宋星。<br/>*A Pmp object (Section 3.2.11) containing any private marketplace deals in effect for this impression.* |
+| displaymanager                  | 字符串              | 广告聚合的名称，负责渲染播放广告的SDK（通常用于视频或者移动设备）。推荐app或视频的广告请求提供此字段。<br/>*Name of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile). Used by some ad servers to customize ad code by partner. Recommended for video and/or apps.* |
+| displaymanagerver               | 字符串              | displaymanager的版本号。<br/>*Version of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile). Used by some ad servers to customize ad code by partner. Recommended for video and/or apps.* |
+| instl                           | 整数；默认为0       | 1代表该广告是插屏广告或全屏广告，0代表不是插屏广告<br/>*1 = the ad is interstitial or full screen, 0 = not interstitial.* |
+| tagid                           | 字符串              | 广告位的标识符或用于发起出价请求的广告代码。提供此字段可以帮助定位解决问题，或帮助广告主进行优化。<br/>*Identifier for specific ad placement or ad tag that was used to initiate the auction. This can be useful for debugging of any issues, or for optimization by the buyer.* |
+| bidfloor                        | 浮点数；默认为0     | 该impression的最低出价，也可称其为CPM<br/>*Minimum bid for this impression expressed in CPM* |
+| bidfloorcur                     | 字符串；默认为"USD" | 遵循ISO 4217标准的货币类型。如果adx允许，出价的货币类型可以与该字段不同。<br/>*Currency specified using ISO-4217 alpha codes. This may be different from bid currency returned by bidder if this is allowed by the exchange.* |
+| clickbrowser                    | 整数                | 表明在app中点击广告后打开的浏览器类型，其中0代表嵌入式（在app中打开），1代表原生（跳转到app外，用手机中的默认浏览器打开）。 请注意，就该字段而言，iOS 9.x设备中的Safari View Controller被视为原生浏览器。<br/>*Indicates the type of browser opened upon clicking the creative in an app, where 0 = embedded, 1 = native. Note that the Safari View Controller in iOS 9.x devices is considered a native browser for purposes of this attribute.* |
+| secure                          | 整数                | 标记广告素材的url是否需要使用https协议，1是0否。如果省略，则默认使用http协议。<br/>*Flag to indicate if the impression requires secure HTTPS URL creative assets and markup, where 0 = non-secure, 1 = secure. If omitted, the secure state is unknown, but non-secure HTTP support can be assumed.* |
+| iframebuster                    | 字符串数组          | 支持的iframe-busters的名称<br/>*Array of exchange-specific names of supported iframe busters.* |
+| exp                             | 整数                | 该交易有效的时长（秒数）。<br/>*Advisory as to the number of seconds that may elapse between the auction and the actual impression.* |
+| ext                             | 对象                | 占位符<br/>*Placeholder for exchange-specific extensions to OpenRTB.* |
 
 #### <span id="325-metric-dui-xiang"> 3.2.5 Metric对象 </span>
+
+`metric`对象是与该impression相关的一些指标，如平均展示率，点击率等。这些指标可以让广告主更了解该impression，以便帮助它们做出更好的决策(决定是否出价、出价价格等)。每个`metric`对象由`type`作为标识符，并包含该指标的值，推荐提供数据的来源或供应商。
+
+| 属性   | 类型                  | 描述                                                         |
+| ------ | --------------------- | ------------------------------------------------------------ |
+| type   | 字符串；`require`     | 指标的类型，类型的名称应事先提供给bidders作参考。<br/>*Type of metric being presented using exchange curated string names which should be published to bidders a priori.* |
+| value  | 浮点数；`require`     | 指标的值，范围在0.0～1.0之间。<br/>*Number representing the value of the metric. Probabilities must be in the range 0.0 – 1.0.* |
+| vendor | 字符串；`recommended` | 数据的来源，供应商的名称应事先提供给bidders作参考。如果该数据为adx自身提供，则该字段推荐传递“EXCHANGE”。<br/>*Source of the value using exchange curated string names which should be published to bidders a priori. If the exchange itself is the source versus a third party, “EXCHANGE” is recommended.* |
+| ext    | 对象                  | 占位符                                                       |
+
+#### <span id="326-banner-dui-xiang"> 3.2.6 Banner对象 </span>
+
+`Banner`广告是impression中最常见的一种类型。尽管`banner`在其他语境下具有特定的意思，但在这里，它可以用于表示很多东西，例如静态图片、[展开式广告](https://support.google.com/adsense/answer/6005201?hl=zh-Hans)、in-banner video:横幅内嵌视频广告(详情参照3.2.7小节)。视频广告里也可以包含一组`banner`对象，用于作为[随播广告](https://support.google.com/google-ads/answer/6293542?hl=zh-Hans)。
 
