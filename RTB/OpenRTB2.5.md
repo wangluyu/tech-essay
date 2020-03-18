@@ -148,7 +148,7 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 | bseat             | 字符串数组         | 买方(如广告主、代理商)黑名单，adx和竞价者必须提前沟通好seat id对应的买方信息。wseat和bseat在同一个bidrequest中至多只能存在其中一个。如果都没有则代表对买方没有限制。<br/>*Block list of buyer seats (e.g., advertisers, agencies) restricted from bidding on this impression. IDs of seats and knowledge of the buyer’s customers to which they refer must be coordinated between bidders and the exchange a priori. At most, only one of wseat and bseat should be used in the same request. Omission of both implies no seat restrictions.* |
 | allimps           | 整数 默认为0       | *Flag to indicate if Exchange can verify that the impressions offered represent all of the impressions available in context (e.g., all on the web page, all video spots such as pre/mid/post roll) to support road-blocking. 0 = no or unknown, 1 = yes, the impressions offered represent all that are available.* |
 | cur               | 字符串数组         | 支持的货币列表(遵循ISO 4217标准)，建议只在支持多种货币交易时使用。<br/>*Array of allowed currencies for bids on this bid request using ISO-4217 alpha codes. Recommended only if the exchange accepts multiple currencies.* |
-| wlang             | 字符串数组         | 素材支持的语言种类列表(遵循ISO-639-1-alpha-2标准)。缺失则表示对语言没有特别要求，但建议买方参考`Device`或`Content`中的`language`字段。<br/>*White list of languages for creatives using ISO-639-1-alpha-2. Omission implies no specific restrictions, but buyers would be advised to consider language attribute in the Device and/or Content objects if available.* |
+| wlang             | 字符串数组         | 素材支持的语言种类列表(遵循ISO-639-1-alpha-2标准)。缺失则表示对语言没有特别要求，但建议买方参考`Device`或`Content`中的`language`属性。<br/>*White list of languages for creatives using ISO-639-1-alpha-2. Omission implies no specific restrictions, but buyers would be advised to consider language attribute in the Device and/or Content objects if available.* |
 | bcat              | 字符串数组         | 广告类型黑名单，描述当前竞价请求屏蔽的广告类型，IAB定义的广告类型列表详见5.1章节<br/>*Blocked advertiser categories using the IAB content categories. Refer to List 5.1.* |
 | badv              | 字符串数组         | 广告主黑名单，描述当前竞价请求屏蔽的广告主域名(例：ford.com)<br/>*Block list of advertisers by their domains (e.g., “ford.com”).* |
 | bapp              | 字符串数组         | App包名黑名单，描述当前竞价请求屏蔽的app，iOS的包名为一串数字。<br/>*Block list of applications by their platform-specific exchangeindependent application identifiers. On Android, these should be bundle or package names (e.g., com.foo.mygame). On iOS, these are numeric IDs.* |
@@ -169,7 +169,7 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 
 #### <span id="3.2.3">3.2.3 Regs对象</span>
 
-该对象包含了任何适用该请求的行业、法律或政府条例。`coppa`字段用于表示该请求是否受美国联邦贸易委员会针对美国地区制定的`儿童在线隐私保护法`(COPPA)约束。
+该对象包含了任何适用该请求的行业、法律或政府条例。`coppa`属性用于表示该请求是否受美国联邦贸易委员会针对美国地区制定的`儿童在线隐私保护法`(COPPA)约束。
 
 | 属性  | 类型 | 描述                                                         |
 | ----- | ---- | ------------------------------------------------------------ |
@@ -191,13 +191,13 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 | audio                             | 对象                | 一个audio对象(3.2.8小节)；如果该impression是audio类型，则必须提供该对象<br/>*An Audio object (Section 3.2.8); required if this impression is offered as an audio ad opportunity.* |
 | native                            | 对象                | 一个native对象(3.2.9小节)；如果该impression是native类型，则必须提供该对象<br/>*A Native object (Section 3.2.9); required if this impression is offered as a native ad opportunity.* |
 | pmp                               | 对象                | 一个PMP对象（3.2.11小节）；适用于该impression的私有广告交易。这里放几篇文章，帮助大家更好地理解什么是PMP。 [《PMP私有交易市场——程序化广告的新高度》](http://www.chinawebanalytics.cn/pmp-new-level-of-programmatic/) 、[《半小时读懂PMP私有广告交易市场》](http://www.chinawebanalytics.cn/what-is-pmp-in-half-an-hour/)，作者是宋星。<br/>*A Pmp object (Section 3.2.11) containing any private marketplace deals in effect for this impression.* |
-| displaymanager                    | 字符串              | 广告聚合的名称，负责渲染播放广告的SDK（通常用于视频或者移动设备）。推荐app或视频的广告请求提供此字段。<br/>*Name of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile). Used by some ad servers to customize ad code by partner. Recommended for video and/or apps.* |
+| displaymanager                    | 字符串              | 广告聚合的名称，负责渲染播放广告的SDK（通常用于视频或者移动设备）。推荐app或视频的广告请求提供此属性。<br/>*Name of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile). Used by some ad servers to customize ad code by partner. Recommended for video and/or apps.* |
 | displaymanagerver                 | 字符串              | displaymanager的版本号。<br/>*Version of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile). Used by some ad servers to customize ad code by partner. Recommended for video and/or apps.* |
 | instl                             | 整数；默认为0       | 1代表该广告是插屏广告或全屏广告，0代表不是插屏广告<br/>*1 = the ad is interstitial or full screen, 0 = not interstitial.* |
-| tagid                             | 字符串              | 广告位的标识符或用于发起出价请求的广告代码。提供此字段可以帮助定位解决问题，或帮助广告主进行优化。<br/>*Identifier for specific ad placement or ad tag that was used to initiate the auction. This can be useful for debugging of any issues, or for optimization by the buyer.* |
+| tagid                             | 字符串              | 广告位的标识符或用于发起出价请求的广告代码。提供此属性可以帮助定位解决问题，或帮助广告主进行优化。<br/>*Identifier for specific ad placement or ad tag that was used to initiate the auction. This can be useful for debugging of any issues, or for optimization by the buyer.* |
 | bidfloor                          | 浮点数；默认为0     | 该impression的最低出价，也可称其为CPM<br/>*Minimum bid for this impression expressed in CPM* |
-| bidfloorcur                       | 字符串；默认为"USD" | 遵循ISO 4217标准的货币类型。如果adx允许，出价的货币类型可以与该字段不同。<br/>*Currency specified using ISO-4217 alpha codes. This may be different from bid currency returned by bidder if this is allowed by the exchange.* |
-| clickbrowser                      | 整数                | 表明在app中点击广告后打开的浏览器类型，其中0代表嵌入式（在app中打开），1代表原生（跳转到app外，用手机中的默认浏览器打开）。 请注意，就该字段而言，iOS 9.x设备中的Safari View Controller被视为原生浏览器。<br/>*Indicates the type of browser opened upon clicking the creative in an app, where 0 = embedded, 1 = native. Note that the Safari View Controller in iOS 9.x devices is considered a native browser for purposes of this attribute.* |
+| bidfloorcur                       | 字符串；默认为"USD" | 遵循ISO 4217标准的货币类型。如果adx允许，出价的货币类型可以与该属性不同。<br/>*Currency specified using ISO-4217 alpha codes. This may be different from bid currency returned by bidder if this is allowed by the exchange.* |
+| clickbrowser                      | 整数                | 表明在app中点击广告后打开的浏览器类型，其中0代表嵌入式（在app中打开），1代表原生（跳转到app外，用手机中的默认浏览器打开）。 请注意，就该属性而言，iOS 9.x设备中的Safari View Controller被视为原生浏览器。<br/>*Indicates the type of browser opened upon clicking the creative in an app, where 0 = embedded, 1 = native. Note that the Safari View Controller in iOS 9.x devices is considered a native browser for purposes of this attribute.* |
 | secure                            | 整数                | 标记广告素材的url是否需要使用https协议，1是0否。如果省略，则默认使用http协议。<br/>*Flag to indicate if the impression requires secure HTTPS URL creative assets and markup, where 0 = non-secure, 1 = secure. If omitted, the secure state is unknown, but non-secure HTTP support can be assumed.* |
 | iframebuster                      | 字符串数组          | 支持的iframe-busters的名称<br/>*Array of exchange-specific names of supported iframe busters.* |
 | exp                               | 整数                | 该交易有效的时长（秒数）。<br/>*Advisory as to the number of seconds that may elapse between the auction and the actual impression.* |
@@ -207,14 +207,31 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 
 `metric`对象是与该impression相关的一些指标，如平均展示率，点击率等。这些指标可以让广告主更了解该impression，以便帮助它们做出更好的决策(决定是否出价、出价价格等)。每个`metric`对象由`type`作为标识符，并包含该指标的值，推荐提供数据的来源或供应商。
 
-| 属性   | 类型                  | 描述                                                         |
-| ------ | --------------------- | ------------------------------------------------------------ |
-| type   | 字符串；`require`     | 指标的类型，类型的名称应事先提供给bidders作参考。<br/>*Type of metric being presented using exchange curated string names which should be published to bidders a priori.* |
+|  属性  | 类型                  | 描述                                                         |
+| :----: | :-------------------- | ------------------------------------------------------------ |
+|  type  | 字符串；`require`     | 指标的类型，类型的名称应事先提供给bidders作参考。<br/>*Type of metric being presented using exchange curated string names which should be published to bidders a priori.* |
 | value  | 浮点数；`require`     | 指标的值，范围在0.0～1.0之间。<br/>*Number representing the value of the metric. Probabilities must be in the range 0.0 – 1.0.* |
-| vendor | 字符串；`recommended` | 数据的来源，供应商的名称应事先提供给bidders作参考。如果该数据为adx自身提供，则该字段推荐传递“EXCHANGE”。<br/>*Source of the value using exchange curated string names which should be published to bidders a priori. If the exchange itself is the source versus a third party, “EXCHANGE” is recommended.* |
-| ext    | 对象                  | 占位符                                                       |
+| vendor | 字符串；`recommended` | 数据的来源，供应商的名称应事先提供给bidders作参考。如果该数据为adx自身提供，则该属性推荐传递“EXCHANGE”。<br/>*Source of the value using exchange curated string names which should be published to bidders a priori. If the exchange itself is the source versus a third party, “EXCHANGE” is recommended.* |
+|  ext   | 对象                  | 占位符                                                       |
 
 #### <span id="3-2-6-banner-dui-xiang"> 3.2.6 Banner对象 </span>
 
-`Banner`广告是impression中最常见的一种类型。尽管`banner`在其他语境下具有特定的意思，但在这里，它可以用于表示很多东西，例如静态图片、[展开式广告](https://support.google.com/adsense/answer/6005201?hl=zh-Hans)、in-banner video:横幅内嵌视频广告(详情参照3.2.7小节)。视频广告里也可以包含一组`banner`对象，用于作为[随播广告](https://support.google.com/google-ads/answer/6293542?hl=zh-Hans)。
+`Banner`广告是impression中最常见的一种类型。尽管`banner`在其他语境下具有特定的意思，但在这里，它可以用于表示很多东西，例如静态图片、[展开式广告](https://support.google.com/adsense/answer/6005201?hl=zh-Hans)、in-banner video:横幅内嵌视频广告(详情参照3.2.7小节)。视频广告里也可以包含一组`banner`对象，用作[随播广告](https://support.google.com/google-ads/answer/6293542?hl=zh-Hans)。
 
+如果`imp`对象包含`banner`对象，则表明该impression支持banner类型。publisher也可以在该impression里提供`video`、`native`、`audio`对象，但是，广告主对该impression的出价必须符合其中一种类型。
+
+|   属性   | 类型                    | 描述                                                         |
+| :------: | :---------------------- | :----------------------------------------------------------- |
+|  format  | 对象数组；`recommended` | 一个`format`对象列表，表示允许的banner尺寸。如果没有提供该属性，则推荐使用`h`和`w`属性。<br/>*Array of format objects (Section 3.2.10) representing the banner sizes permitted. If none are specified, then use of the h and w attributes is highly recommended.* |
+|    w     | 整数                    | 设备横向DIP(DP)，如果未提供`format`属性，则推荐提供该属性。<br/>*Exact width in device independent pixels (DIPS); recommended if no format objects are specified.* |
+|    h     | 整数                    | 设备纵向DIP(DP)，如果未提供`format`属性，则推荐提供该属性。<br/>*Exact height in device independent pixels (DIPS); recommended if no format objects are specified.* |
+|  btype   | 整数数组                | banner广告类型黑名单。具体值参考列表5.2<br/>*Blocked banner ad types. Refer to List 5.2.* |
+|  battr   | 整数数组                | 素材属性黑名单。具体值参考列表5.3<br/>*Blocked creative attributes. Refer to List 5.3.* |
+|   pos    | 整数                    | 广告出现在屏幕的位置。具体值参考列表5.4<br/>*Ad position on screen. Refer to List 5.4.* |
+|  mimes   | 字符串数组              | 支持的媒体类型（[MIME](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)），常用的媒体类型有"application/x-shockwave-flash"、"image/jpg"、"image/gif"。<br/>*Content MIME types supported. Popular MIME types may include “application/x-shockwave-flash”, “image/jpg”, and “image/gif”.* |
+| topframe | 整数                    | 用于表明banner是否在顶部框架而非iframe中，1代表在顶部框架中，0代表在iframe中。<br/>*Indicates if the banner is in the top frame as opposed to an iframe, where 0 = no, 1 = yes.* |
+|  expdir  | 整数数组                | banner可展开的方向，具体值参考列表5.5。<br/>*Directions in which the banner may expand. Refer to List 5.5.* |
+|   api    | 整数数组                | 支持的API框架。具体值参考列表5.6。如果未明确列出某API，则表明不支持该API。<br/>*List of supported API frameworks for this impression. Refer to List 5.6. If an API is not explicitly listed, it is assumed not to be supported.* |
+|    id    | 字符串                  | 该banner对象的唯一标识符。当该`banner`对象是用作`video`的随播广告时，则推荐提供该属性。通常从1开始递增，在同一个impression里，id必须是唯一的。<br/>*Unique identifier for this banner object. Recommended when Banner objects are used with a Video object (Section 3.2.7) to represent an array of companion ads. Values usually start at 1 and increase with each object; should be unique within an impression.* |
+|   vcm    | 整数                    | 当且仅当`banner`对象是用作`video`的随播广告时，才需要提供该属性。表明随播广告的渲染模式，0表示与video一起展示（concurrent），1表示在video结束后展示（end-card）。<br/>*Relevant only for Banner objects used with a Video object (Section 3.2.7) in an array of companion ads. Indicates the companion banner rendering mode relative to the associated video, where 0 = concurrent, 1 = end-card.* |
+|   ext    | 对象                    | 占位符                                                       |

@@ -3,7 +3,7 @@
 * [随笔](README.md)
 
 ## RTB
-* [OpenRTB V2.5](RTB/OpenRTB2.5.md)
+* [OpenRTB规范 V2.5 FINAL（中文）](RTB/OpenRTB2.5.md)
 * [OpenRTB相关资料](RTB/OpenRTB资料.md)
 
 ## Druid
