@@ -235,3 +235,11 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 |    id    | 字符串                  | 该banner对象的唯一标识符。当该`banner`对象是用作`video`的随播广告时，则推荐提供该属性。通常从1开始递增，在同一个impression里，id必须是唯一的。<br/>*Unique identifier for this banner object. Recommended when Banner objects are used with a Video object (Section 3.2.7) to represent an array of companion ads. Values usually start at 1 and increase with each object; should be unique within an impression.* |
 |   vcm    | 整数                    | 当且仅当`banner`对象是用作`video`的随播广告时，才需要提供该属性。表明随播广告的渲染模式，0表示与video一起展示（concurrent），1表示在video结束后展示（end-card）。<br/>*Relevant only for Banner objects used with a Video object (Section 3.2.7) in an array of companion ads. Indicates the companion banner rendering mode relative to the associated video, where 0 = concurrent, 1 = end-card.* |
 |   ext    | 对象                    | 占位符                                                       |
+
+
+
+
+------
+
+To be continued
+
