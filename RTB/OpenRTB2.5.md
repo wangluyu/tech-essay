@@ -236,6 +236,40 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 |   vcm    | 整数                    | 当且仅当`banner`对象是用作`video`的随播广告时，才需要提供该属性。表明随播广告的渲染模式，0表示与video一起展示（concurrent），1表示在video结束后展示（end-card）。<br/>*Relevant only for Banner objects used with a Video object (Section 3.2.7) in an array of companion ads. Indicates the companion banner rendering mode relative to the associated video, where 0 = concurrent, 1 = end-card.* |
 |   ext    | 对象                    | 占位符                                                       |
 
+#### <span id="3-2-7-video-dui-xiang"> 3.2.7 Video对象 </span>
+
+该对象代表一个插播视频广告的impression。下表中很多字段对于最基础的视频广告交易来说是非必要的，但是提供这些字段可以帮助更加精细化地控制。OpenRTB的Video物料通常都默认遵循VAST标准，这样可以在VAST中包含一组[`Banner`对象](#3-2-6-banner-dui-xiang)用于作为随播广告。
+
+如果`imp`对象包含`video`对象，则表明该impression支持video类型。publisher也可以在该impression里提供`banner`、`native`、`audio`对象，但是，广告主对该impression的出价必须符合其中一种类型。
+
+| 属性           | 类型                    | 描述                                                         |
+| -------------- | ----------------------- | ------------------------------------------------------------ |
+| mimes          | 字符串数组；`require`   | 支持的媒体类型（[MIME](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)）（例如：“video/x-ms-wmv”、“video/mp4”）<br/>*Content MIME types supported (e.g., “video/x-ms-wmv”, “video/mp4”).* |
+| minduration    | 整数；`recommended`     | 视频最小时长，单位为秒<br/>*Minimum video ad duration in seconds.* |
+| maxduration    | 整数；`recommended`     | 视频最大时长，单位为秒<br/>*Maximum video ad duration in seconds.* |
+| protocols      | 整数数组；`recommended` | 支持的视频协议列表。详情参考[5.8章节](#5-8-xie-yi-protocols)。至少要列出一种支持的视频协议。<br/>*Array of supported video protocols. Refer to List 5.8. At least one supported protocol must be specified in either the protocol or protocols attribute.* |
+| protocol       | 整数；`recommended`     | 设备横向DIP(DP)<br/>*Width of the video player in device independent pixels (DIPS).* |
+| w              | 整数；`recommended`     | 设备纵向DIP(DP)<br/>*Height of the video player in device independent pixels (DIPS).* |
+| startdelay     | 整数；`recommended`     | 片头广告，片中广告或片后广告的开始播放延迟秒数。更多通用值请参考[5.2小节](#)<br/>*Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll ad placements. Refer to List 5.12 for additional generic values.* |
+| placement      | 整数                    | impression的放置类型，详情参考[5.9章节](#)<br/>*Placement type for the impression. Refer to List 5.9.* |
+| linearity      | 整数                    | 用于规定impression是线性的还是非线性的。如果没有指定，则表明都可以。详情参考[5.7小节](#)<br/>*Indicates if the impression must be linear, nonlinear, etc. If none specified, assume all are allowed. Refer to List 5.7.* |
+| skip           | 整数                    | 表明播放器是否允许跳过广告，0表示不允许，1表示允许。如果竞价者提供的素材本身是支持跳过的，则应该在bid对象中提供`attr`字段，并且`attr`的值包含16。详情参考[5.3小节](#)<br/>*Indicates if the player will allow the video to be skipped, where 0 = no, 1 = yes. If a bidder sends markup/creative that is itself skippable, the Bid object should include the attr array with an element of 16 indicating skippable video. Refer to List 5.3* |
+| skipmin        | 整数；默认为0           | <br/>*Videos of total duration greater than this number of seconds can be skippable; only applicable if the ad is skippable.* |
+| skipafter      | 整数；默认为0           | <br/>*Number of seconds a video must play before skipping is enabled; only applicable if the ad is skippable.* |
+| sequence       | 整数                    | <br/>*If multiple ad impressions are offered in the same bid request, the sequence number will allow for the coordinated delivery of multiple creatives.* |
+| battr          | 整数数组                | <br/>*Blocked creative attributes. Refer to List 5.3.*       |
+| maxextended    | 整数                    | <br/>*Maximum extended ad duration if extension is allowed. If blank or 0, extension is not allowed. If -1, extension is allowed, and there is no time limit imposed. If greater than 0, then the value represents the number of seconds of extended play supported beyond the maxduration value.* |
+| minbitrate     | 整数                    | <br/>*Minimum bit rate in Kbps.*                             |
+| maxbitrate     | 整数                    | <br/>*Maximum bit rate in Kbps.*                             |
+| boxingallowed  | 整数；默认为1           | <br/>*Indicates if letter-boxing of 4:3 content into a 16:9 window is allowed, where 0 = no, 1 = yes* |
+| playbackmethod | 整数数组                | <br/>*Playback methods that may be in use. If none are specified, any method may be used. Refer to List 5.10. Only one method is typically used in practice. As a result, this array may be converted to an integer in a future version of the specification. It is strongly advised to use only the first element of this array in preparation for this change.* |
+| playbackend    | 整数                    | <br/>*The event that causes playback to end. Refer to List 5.11.* |
+| delivery       | 整数数组                | <br/>*Supported delivery methods (e.g., streaming, progressive). If none specified, assume all are supported. Refer to List 5.15* |
+| pos            | 整数                    | <br/>*Ad position on screen. Refer to List 5.4.*             |
+| companionad    | 对象数组                | <br/>*Array of Banner objects (Section 3.2.6) if companion ads are available.* |
+| api            | 整数数组                | <br/>*List of supported API frameworks for this impression. Refer to List 5.6. If an API is not explicitly listed, it is assumed not to be supported.* |
+| companiontype  | 整数数组                | <br/>*Supported VAST companion ad types. Refer to List 5.14. Recommended if companion Banner objects are included via the companionad array. If one of these banners will be rendered as an end-card, this can be specified using the vcm attribute with the particular banner (Section 3.2.6).* |
+| ext            | 对象                    | *Placeholder for exchange-specific extensions to OpenRTB*    |
 
 
 
