@@ -32,9 +32,9 @@ OpenRTB是数字媒体自动化交易的一套开放标准，用于规范自动�
 | Seat        | 有广告预算的一方(广告主，媒体)<br/>*An advertising entity (e.g., advertiser, agency) that wishes to obtain impressions and uses bidders to act on their behalf; a customer of a bidder and usually the owner of the advertising budget.* |
 | Publisher   | 出售广告位的一方<br/>*An entity that operates one or more sites.* |
 | Site        | 网站或者app<br/>*Ad supported content including web and applications unless otherwise specified.* |
-| Deal        | Publisher和Site提前达成的协议，用于按特定条款购买展示<br/>*A pre-arranged agreement between a Publisher and a Seat to purchase impressions under certain terms.* |
+| Deal        | Publisher和Seat提前达成的协议，用于按特定条款购买展示<br/>*A pre-arranged agreement between a Publisher and a Seat to purchase impressions under certain terms.* |
 | *Adx        | Ad Exchange， 广告交易平台                                   |
-| *impression | 广告展示机会                                                 |
+| *impression | 广告展示机会/曝光机会                                        |
 
 ## 2 OpenRTB基础（OpenRTB Basics）
 
@@ -254,22 +254,30 @@ request顶层对象包含唯一一个出价请求和请求id。`id` 和`imp` 是
 | placement      | 整数                    | impression的放置类型，详情参考[5.9章节](#)<br/>*Placement type for the impression. Refer to List 5.9.* |
 | linearity      | 整数                    | 用于规定impression是线性的还是非线性的。如果没有指定，则表明都可以。详情参考[5.7小节](#)<br/>*Indicates if the impression must be linear, nonlinear, etc. If none specified, assume all are allowed. Refer to List 5.7.* |
 | skip           | 整数                    | 表明播放器是否允许跳过广告，0表示不允许，1表示允许。如果竞价者提供的素材本身是支持跳过的，则应该在bid对象中提供`attr`字段，并且`attr`的值包含16。详情参考[5.3小节](#)<br/>*Indicates if the player will allow the video to be skipped, where 0 = no, 1 = yes. If a bidder sends markup/creative that is itself skippable, the Bid object should include the attr array with an element of 16 indicating skippable video. Refer to List 5.3* |
-| skipmin        | 整数；默认为0           | <br/>*Videos of total duration greater than this number of seconds can be skippable; only applicable if the ad is skippable.* |
-| skipafter      | 整数；默认为0           | <br/>*Number of seconds a video must play before skipping is enabled; only applicable if the ad is skippable.* |
-| sequence       | 整数                    | <br/>*If multiple ad impressions are offered in the same bid request, the sequence number will allow for the coordinated delivery of multiple creatives.* |
-| battr          | 整数数组                | <br/>*Blocked creative attributes. Refer to List 5.3.*       |
-| maxextended    | 整数                    | <br/>*Maximum extended ad duration if extension is allowed. If blank or 0, extension is not allowed. If -1, extension is allowed, and there is no time limit imposed. If greater than 0, then the value represents the number of seconds of extended play supported beyond the maxduration value.* |
-| minbitrate     | 整数                    | <br/>*Minimum bit rate in Kbps.*                             |
-| maxbitrate     | 整数                    | <br/>*Maximum bit rate in Kbps.*                             |
-| boxingallowed  | 整数；默认为1           | <br/>*Indicates if letter-boxing of 4:3 content into a 16:9 window is allowed, where 0 = no, 1 = yes* |
-| playbackmethod | 整数数组                | <br/>*Playback methods that may be in use. If none are specified, any method may be used. Refer to List 5.10. Only one method is typically used in practice. As a result, this array may be converted to an integer in a future version of the specification. It is strongly advised to use only the first element of this array in preparation for this change.* |
-| playbackend    | 整数                    | <br/>*The event that causes playback to end. Refer to List 5.11.* |
-| delivery       | 整数数组                | <br/>*Supported delivery methods (e.g., streaming, progressive). If none specified, assume all are supported. Refer to List 5.15* |
-| pos            | 整数                    | <br/>*Ad position on screen. Refer to List 5.4.*             |
-| companionad    | 对象数组                | <br/>*Array of Banner objects (Section 3.2.6) if companion ads are available.* |
-| api            | 整数数组                | <br/>*List of supported API frameworks for this impression. Refer to List 5.6. If an API is not explicitly listed, it is assumed not to be supported.* |
-| companiontype  | 整数数组                | <br/>*Supported VAST companion ad types. Refer to List 5.14. Recommended if companion Banner objects are included via the companionad array. If one of these banners will be rendered as an end-card, this can be specified using the vcm attribute with the particular banner (Section 3.2.6).* |
+| skipmin        | 整数；默认为0           | 总时长大于该值的视频才可以跳过；仅适用于支持跳过的广告。<br/>*Videos of total duration greater than this number of seconds can be skippable; only applicable if the ad is skippable.* |
+| skipafter      | 整数；默认为0           | 该字段规定了在播放多少秒后，广告才允许被跳过；仅适用于支持跳过的广告。<br/>*Number of seconds a video must play before skipping is enabled; only applicable if the ad is skippable.* |
+| sequence       | 整数                    | 如果同一个竞价请求中包含多个impression，该值指定了视频播放的顺序。<br/>*If multiple ad impressions are offered in the same bid request, the sequence number will allow for the coordinated delivery of multiple creatives.* |
+| battr          | 整数数组                | 被屏蔽的素材类型。详情参考[5.3小节](#)<br/>*Blocked creative attributes. Refer to List 5.3.* |
+| maxextended    | 整数                    | 该值指定了广告最长可延长的时间。 如果该值为空白或0，则表示不允许扩展。 如果为-1，则允许扩展，并且没有时间限制。 如果大于0，则该值表示超出原视频时间所支持的延长播放的秒数。<br/>*Maximum extended ad duration if extension is allowed. If blank or 0, extension is not allowed. If -1, extension is allowed, and there is no time limit imposed. If greater than 0, then the value represents the number of seconds of extended play supported beyond the maxduration value.* |
+| minbitrate     | 整数                    | 最小比特率（Kbps）。<br/>*Minimum bit rate in Kbps.*         |
+| maxbitrate     | 整数                    | 最大比特率（Kbps）。<br/>*Maximum bit rate in Kbps.*         |
+| boxingallowed  | 整数；默认为1           | 表明是否支持在16:9的播放器里播放4:3的视频广告，1表示支持，0表示不支持。如果没有指定该值，默认支持。<br/>*Indicates if letter-boxing of 4:3 content into a 16:9 window is allowed, where 0 = no, 1 = yes* |
+| playbackmethod | 整数数组                | 可能使用的播放方式，如果没有指定，则表示可以使用任一方式。详情参考[5.10小节](#)。因为在实际中只会使用一种方式，在未来的版本中改字段可能会改成整数类型(现在是整数数组)，所以强烈建议仅使用该数组中的第一值。<br/>*Playback methods that may be in use. If none are specified, any method may be used. Refer to List 5.10. Only one method is typically used in practice. As a result, this array may be converted to an integer in a future version of the specification. It is strongly advised to use only the first element of this array in preparation for this change.* |
+| playbackend    | 整数                    | 可以触发视频结束的事件，详情参考[5.11小节](#)<br/>*The event that causes playback to end. Refer to List 5.11.* |
+| delivery       | 整数数组                | 支持的投放方式(如流式、渐进式)。如果未指定，则表示都支持。<br/>*Supported delivery methods (e.g., streaming, progressive). If none specified, assume all are supported. Refer to List 5.15* |
+| pos            | 整数                    | 广告在屏幕上显示的位置，详情参考[5.4小节](#)<br/>*Ad position on screen. Refer to List 5.4.* |
+| companionad    | 对象数组                | 一组[`banner`对象](#3-2-6-banner-dui-xiang)，仅当支持随播广告时需要提供。<br/>*Array of Banner objects (Section 3.2.6) if companion ads are available.* |
+| api            | 整数数组                | 列举支持的API frameworks。详情参考[5.6小节](#)。如果某个api的值没有被列举出来，则表示不支持该api。<br/>*List of supported API frameworks for this impression. Refer to List 5.6. If an API is not explicitly listed, it is assumed not to be supported.* |
+| companiontype  | 整数数组                | 支持的VAST随播广告类型。详情参考[5.14小节](#).如果companionad提供了`banner`对象，则建议同时提供该字段。如果这些`banner`是被渲染为end-card，则可以指定`banner`对象的vcm属性。<br/>*Supported VAST companion ad types. Refer to List 5.14. Recommended if companion Banner objects are included via the companionad array. If one of these banners will be rendered as an end-card, this can be specified using the vcm attribute with the particular banner (Section 3.2.6).* |
 | ext            | 对象                    | *Placeholder for exchange-specific extensions to OpenRTB*    |
+
+#### <span id="3-2-8-audio-dui-xiang"> 3.2.8 Audio对象 </span>
+
+略
+
+
+
+#### <span id="3-2-9-native-dui-xiang"> 3.2.9 Native对象 </span>
 
 
 
